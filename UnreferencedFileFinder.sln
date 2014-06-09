@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnreferencedFileFinder", "UnreferencedFileFinder\UnreferencedFileFinder.csproj", "{7890AD0C-680E-495B-9FDB-481932F53D19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnreferencedFileFinder.UnitTests", "UnreferencedFileFinder.UnitTests\UnreferencedFileFinder.UnitTests.csproj", "{AE48EBD3-C594-445E-BB2B-DFEF38795C63}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7890AD0C-680E-495B-9FDB-481932F53D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7890AD0C-680E-495B-9FDB-481932F53D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7890AD0C-680E-495B-9FDB-481932F53D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7890AD0C-680E-495B-9FDB-481932F53D19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE48EBD3-C594-445E-BB2B-DFEF38795C63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE48EBD3-C594-445E-BB2B-DFEF38795C63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE48EBD3-C594-445E-BB2B-DFEF38795C63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE48EBD3-C594-445E-BB2B-DFEF38795C63}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
