@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Xunit;
 
 namespace UnreferencedFileFinder.UnitTests
@@ -66,34 +62,6 @@ namespace UnreferencedFileFinder.UnitTests
 			referencedProjectFiles.AddFile(referencedFilePath);
 
 			Assert.False(referencedProjectFiles.IsFileReferenced(nonReferencedFilePath));
-		}
-
-		/// <summary>
-		/// Assert that the enumerator returned by GetEnumerator() iterates through all the referenced files and includes each file only once.
-		/// </summary>
-		[Fact]
-		public void ReferencedProjectFiles_GetEnumerator_IncludesAllReferencedFilesOnlyOnce()
-		{
-			List<string> referencedFiles = new List<string>
-			{
-				@"c:\temp\Test.cs",
-				@"c:\temp\Test2.cs",
-				@"c:\temp2\Test.cs",
-
-			};
-
-			ReferencedProjectFiles referencedProjectFiles = new ReferencedProjectFiles();
-			foreach (string file in referencedFiles)
-			{
-				referencedProjectFiles.AddFile(file);
-			}
-
-			foreach (string referencedFile in referencedProjectFiles)
-			{
-				referencedFiles.Remove(referencedFile);
-			}
-
-			Assert.Equal(0, referencedFiles.Count);
 		}
     }
 }

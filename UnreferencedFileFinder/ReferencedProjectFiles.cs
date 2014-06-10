@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnreferencedFileFinder
 {
@@ -12,7 +9,7 @@ namespace UnreferencedFileFinder
 	/// Small class used to store the files referenced by a project. To avoid sorting through a long list of
 	/// files to find if a file is referenced, the files are grouped together into separate lists per directory.
 	/// </summary>
-    public class ReferencedProjectFiles : IEnumerable<string>
+    public class ReferencedProjectFiles
     {
 		public ReferencedProjectFiles()
 		{
@@ -37,8 +34,9 @@ namespace UnreferencedFileFinder
 		/// <param name="filePath">The full file path of the file. Can be a relative file path e.g. "..\Test.cs"</param>
 		public void AddFile(string filePath)
 		{
-			string directory = Path.GetDirectoryName(filePath);
-			string fileName = Path.GetFileName(filePath);
+			string directory;
+			string fileName;
+			SplitFilePath(filePath, out directory, out fileName);
 
 			if (!ProjectFiles.ContainsKey(directory))
 			{
@@ -55,36 +53,17 @@ namespace UnreferencedFileFinder
 		/// <returns>True if the given file is referenced by the project.</returns>
 		public bool IsFileReferenced(string filePath)
 		{
-			string directory = Path.GetDirectoryName(filePath);
-			string fileName = Path.GetFileName(filePath);
-			
+			string directory;
+			string fileName;
+			SplitFilePath(filePath, out directory, out fileName);
+
 			return ProjectFiles.ContainsKey(directory) && ProjectFiles[directory].Contains(fileName);
 		}
 
-		/// <summary>
-		/// Allows foreach iteration of the files referenced by the project.
-		/// </summary>
-		/// <returns>An enumerator that will iterate over the referenced files.</returns>
-		public IEnumerator<string> GetEnumerator()
+		private void SplitFilePath(string filePath, out string directory, out string fileName)
 		{
-			List<string> referencedFiles = new List<string>();
-			foreach (string directory in ProjectFiles.Keys)
-			{
-				var directoryFiles = from file in ProjectFiles[directory]
-									 select Path.Combine(directory, file);
-				referencedFiles.AddRange(directoryFiles);
-			}
-
-			return referencedFiles.GetEnumerator();
-		}
-
-		/// <summary>
-		/// This method is required to implement System.Collections.Generic.IEnumerable
-		/// because that class inherits System.Collections.IEnumerable which requires this.
-		/// </summary>
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
+			directory = Path.GetDirectoryName(filePath).ToUpper();
+			fileName = Path.GetFileName(filePath).ToUpper();
 		}
     }
 }

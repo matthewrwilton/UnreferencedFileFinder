@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using Xunit;
 
 namespace UnreferencedFileFinder.UnitTests
@@ -104,27 +100,30 @@ namespace UnreferencedFileFinder.UnitTests
 		}
 
 		[Fact]
-		public void UnreferencedFilesFinder_FindUnreferencedProjectFiles_IgnoresFilesInThePropertiesDirectory()
+		public void UnreferencedFilesFinder_FindUnreferencedProjectFiles_IsCaseInsensitive()
 		{
 			string projectDirectory = @"C:\temp\UnreferencedFilesFinderTests";
 			string projectFile = Path.Combine(projectDirectory, "test.csproj");
-			string propertiesDirectory = Path.Combine(projectDirectory, "Properties");
-			string ignoredFile = Path.Combine(propertiesDirectory, "test.txt");
-
-			string projectXml = @"<Project xmlns=""http://schemas.microsoft.com/developer/msbuild/2003""></Project>";
+			string testFileName = "test.txt";
+			string testFile = Path.Combine(projectDirectory, testFileName);
+			string projectXml = String.Format(
+				@"<Project xmlns=""http://schemas.microsoft.com/developer/msbuild/2003"">
+					<ItemGroup>
+						<Item Include=""{0}"" />
+					</ItemGroup>
+				</Project>", testFileName.ToUpper());
 
 			try
 			{
 				// Create directories and files for testing.
 				Directory.CreateDirectory(projectDirectory);
-				Directory.CreateDirectory(propertiesDirectory);
-				File.WriteAllText(ignoredFile, "Test");
+				File.WriteAllText(testFile, "Test");
 				File.WriteAllText(projectFile, projectXml);
 
 				UnreferencedFilesFinder unreferencedFilesFinder = new UnreferencedFilesFinder(projectFile);
 				List<string> unreferencedFiles = unreferencedFilesFinder.FindUnreferencedProjectFiles();
 
-				Assert.DoesNotContain<string>(ignoredFile, unreferencedFiles);
+				Assert.DoesNotContain<string>(testFile, unreferencedFiles);
 			}
 			finally
 			{

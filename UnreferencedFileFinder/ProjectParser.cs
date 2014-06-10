@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace UnreferencedFileFinder
@@ -59,7 +56,7 @@ namespace UnreferencedFileFinder
 		/// <summary>
 		/// Adds all of the files in the item group into the ReferencedProjectFiles object.
 		/// </summary>
-		/// <param name="itemGroup">An ItemGroup element from a MSBuild project.</param>
+		/// <param name="itemGroupElement">An ItemGroup element from a MSBuild project.</param>
 		/// <param name="referencedProjectFiles">The object to add all referenced files into.</param>
 		private void AddProjectFilesFromItemGroup(XElement itemGroupElement, ReferencedProjectFiles referencedProjectFiles)
 		{

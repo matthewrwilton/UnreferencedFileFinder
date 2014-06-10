@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace UnreferencedFileFinder
@@ -16,7 +13,6 @@ namespace UnreferencedFileFinder
 		// The following directories do not need to be checked for unreferenced files.
 		private const string DIRECTORY_BIN = "bin";
 		private const string DIRECTORY_OBJ = "obj";
-		private const string DIRECTORY_PROPERTIES = "Properties";
 
 		private const string FILE_EXTENSION_USER = ".user";
 
@@ -31,7 +27,6 @@ namespace UnreferencedFileFinder
 			ProjectDirectory = Path.GetDirectoryName(projectFile);
 			BinDirectory = Path.Combine(ProjectDirectory, DIRECTORY_BIN);
 			ObjDirectory = Path.Combine(ProjectDirectory, DIRECTORY_OBJ);
-			PropertiesDirectory = Path.Combine(ProjectDirectory, DIRECTORY_PROPERTIES);
 		}
 
 		/// <summary>
@@ -134,13 +129,12 @@ namespace UnreferencedFileFinder
 		}
 
 		/// <summary>
-		/// Do not check the bin, obj or Properties directories for unreferenced files.
+		/// Do not check the bin or obj directories for unreferenced files.
 		/// </summary>
 		private bool DirectoryRequiresChecking(string directoryName)
 		{
 			return !directoryName.Equals(BinDirectory) &&
-				   !directoryName.Equals(ObjDirectory) &&
-				   !directoryName.Equals(PropertiesDirectory);
+				   !directoryName.Equals(ObjDirectory);
 		}
 
 		private string GetFileNameRelativeToProject(string absoluteFilePath)
