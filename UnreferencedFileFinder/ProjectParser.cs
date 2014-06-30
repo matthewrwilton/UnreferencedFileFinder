@@ -76,7 +76,7 @@ namespace UnreferencedFileFinder
 				{
 					// Include is a required attribute on an item element. See http://msdn.microsoft.com/en-us/library/ms164283.aspx
 					string msg = String.Format("The '{0}' attribute was missing from the '{1}' element.", ATTRIBUTE_INCLUDE, itemElement.Name);
-					throw new Exception();
+					throw new Exception(msg);
 				}
 				string filePath = includeAttribute.Value;
 
